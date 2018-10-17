@@ -65,7 +65,7 @@ function commandReceived(body) {
 }
 
 module.exports = function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+    context.log(req.body);
     let response = action(req);    
     context.res = {
         headers: {"Content-Type": 'application/json'},
