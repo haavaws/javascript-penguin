@@ -121,13 +121,13 @@ function commandReceived(context,body) {
         context.log("shoot");
         response = "shoot";
     }
-    else if (body.bonusTiles.length != 0) {
+    /*else if (body.bonusTiles.length != 0) {
         context.log("bonus tile");
         response = visibleBonusAction(body);
-    }
-    else if (!body.enemies[0].x){
+    }*/
+    else if (body.enemies[0].x !== undefined){
         context.log("enemy");
-        response = targetEnemy(body);
+        response = moveTowardsPoint(body,body.enemies[0].x,);
     }
     else{
         context.log("center");
