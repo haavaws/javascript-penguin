@@ -122,7 +122,7 @@ function moveAwayFromFlames(body){
 function commandReceived(body) {
     var response;
     if (openShot(body)) response = "shoot";
-    else if (body.bonusTiles.len != 0) response = visibleBonusAction(body);
+    else if (body.bonusTiles.length != 0) response = visibleBonusAction(body);
     else if (!body.enemies[0].x) response = targetEnemy(body);
     else response = moveTowardsCenterOfMap(body);
     return { command: response};
