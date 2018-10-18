@@ -46,13 +46,13 @@ function doesCellContainWall(walls, x, y) {
 function wallInFrontOfPenguin(body) {
     switch(body.you.direction) {
         case "top":
-            return doesCellContainWall(body.walls, body.you.x, --body.you.y);
+            return doesCellContainWall(body.walls, body.you.x, body.you.y - 1);
         case "bottom":
-            return doesCellContainWall(body.walls, body.you.x, ++body.you.y);
+            return doesCellContainWall(body.walls, body.you.x, body.you.y + 1);
         case "left":
-            return doesCellContainWall(body.walls, --body.you.x, body.you.y);
+            return doesCellContainWall(body.walls, body.you.x - 1, body.you.y);
         case "right":
-            return doesCellContainWall(body.walls, ++body.you.x, body.you.y);
+            return doesCellContainWall(body.walls, body.you.x + 1, body.you.y);
         default:
             return true;
     }
@@ -107,15 +107,21 @@ function findClosest(body,targets){
 function bonusCloser(body){
     
     var closestBonus = [500,500];
+    var enemyXDist = body.you.x - body.enemies[0].x;
+    var enemyYDist = body.you.y - body.enemies[0].y;
+    var bonusXDist = body.you.x - closestBpnus[0];
+    var bonusYDist = body.you.y - closestBonus[1];
+
     if(body.enemies[0].x !== undefined){
         if(body.bonusTiles.length > 0) closestBonus = findClosest(body,body.bonusTiles);
-        if(closestBonus[0]+closestBonus[1] <= body.enemies[0].x + body.enemies[0].y){
+        if(Math.abs(bonusXDist)+Math.abs(bonusYDist) <= Math.abs(enemyXDist) + Math.abs(enemyYDist)){
             return closestBonus;
         }else return false;
-    }else {
-        if(closestBonus[0]+closestBonus[1] < body.visibility) return closestBonus;
-        else return false;
     }
+
+    if(bonusXDist + bonusYDist < body.visibility) return closestBonus;
+    else return false;
+    
 }
 
 function visibleBonusAction(body){
