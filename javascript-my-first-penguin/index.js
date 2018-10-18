@@ -58,9 +58,73 @@ function wallInFrontOfPenguin(body) {
     }
 }
 
+function openShot(body){
+    var i;
+    for(i=0;i<body.enemies.length;i++){
+        xDist = body.you.x - body.enemies[i].x;
+        yDist = body.you.y - body.enemies[i].y;
+        if(Math.abs(xDist) < body.you.weaponRange && yDist == 0){
+            if(body.you.direction === "right" && xDist < 0) return true;
+            else if(body.you.direction === "left" && xDist > 0) return true;
+        }
+        else if (Math.abs(yDist) < body.you.weaponRange && xDist == 0){
+            if(body.you.direction === "down" && yDist < 0) return true;
+            else if(body.you.direction === "up" && yDist > 0) return true;
+        }
+    }
+}
+
+function findClosest(body,targets){
+    var i;
+    var minXDist;
+    var minYDist;
+    var agentXPos = body.you.x;
+    var agentYPos = body.you.y;
+    var tarX;
+    var tarY;
+
+    for (i=0;i<targets.length;i++){
+        var tempTarX = targets[i].x;
+        var tempTarY = targets[i].y;
+        var xDist = agentXPos - tempTarX;
+        var yDist = agentYPos - tempTarY;
+
+        if(Math.abs(xDist) + Math.abs(yDist) < Math.abs(minXDist) + Math.abs(minYDist)){
+            minXDist = xDist;
+            minYDist = yDist;
+            tarX = tempTarX;
+            tarY = tempTarY;
+        }
+    }
+
+    return [tarX,tarY];
+
+}
+
+function visibleBonusAction(body){
+
+    var tarCoords = findClosest(body,body.bonusTiles);
+
+    return moveTowardsPoint(body,tarCoords[0],tarCoords[1]);
+}
+
+function targetEnemy(body){
+    var tarCoords = findClosest(body,body.enemies);
+
+    return moveTowardsPoint(body,tarCoords[0],tarCoords[1]);
+
+}
+
+function moveAwayFromFlames(body){
+
+}
+
 function commandReceived(body) {
-    let response = PASS;
-    response = moveTowardsCenterOfMap(body);
+    var response;
+    if (openShot(body)) response = "shoot";
+    else if (body.bonusTiles.len != 0) response = visibleBonusAction(body);
+    else if (!body.enemies[0].x) response = targetEnemy(body);
+    else response = moveTowardsCenterOfMap(body);
     return { command: response};
 }
 
