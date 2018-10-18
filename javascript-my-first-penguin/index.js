@@ -182,7 +182,7 @@ function action(context,req) {
 }
 
 function infoReceived() {
-    let penguinName = "<script>alert(\"hello\")</script>";
+    let penguinName = "<h1 style='font-size:40pt;color:\'pink\''>Tyrannosaurus Tux</h1>";
     let teamName = "Kernel Panic";
 
     return {name: penguinName, team: teamName};
