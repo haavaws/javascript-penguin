@@ -107,10 +107,15 @@ function findClosest(body,targets){
 function bonusCloser(body){
     
     var closestBonus = [500,500];
-    if(body.bonusTiles.length > 0) closestBonus = findClosest(body,body.bonusTiles);
-    if(closestBonus[0]+closestBonus[1] <= body.enemies[0].x + body.enemies[0].y){
-        return closestBonus;
-    }else return false;
+    if(body.enemies[i].x !== undefined){
+        if(body.bonusTiles.length > 0) closestBonus = findClosest(body,body.bonusTiles);
+        if(closestBonus[0]+closestBonus[1] <= body.enemies[0].x + body.enemies[0].y){
+            return closestBonus;
+        }else return false;
+    }else {
+        if(closestBonus[0]+closestBonus[1] < body.visibility) return closestBonus;
+        else return false;
+    }
 }
 
 function visibleBonusAction(body){
