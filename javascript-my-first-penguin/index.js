@@ -60,18 +60,20 @@ function wallInFrontOfPenguin(body) {
 
 function openShot(body){
     var i;
-    for(i=0;i<body.enemies.length;i++){
-        xDist = body.you.x - body.enemies[i].x;
-        yDist = body.you.y - body.enemies[i].y;
-        if(Math.abs(xDist) < body.you.weaponRange && yDist == 0){
-            if(body.you.direction === "right" && xDist < 0) return true;
-            else if(body.you.direction === "left" && xDist > 0) return true;
-        }
-        else if (Math.abs(yDist) < body.you.weaponRange && xDist == 0){
-            if(body.you.direction === "down" && yDist < 0) return true;
-            else if(body.you.direction === "up" && yDist > 0) return true;
-        }
+
+    xDist = body.you.x - body.enemies[0].x;
+    yDist = body.you.y - body.enemies[0].y;
+
+    if(Math.abs(xDist) < body.you.weaponRange && yDist == 0){
+        if(body.you.direction === "right" && xDist < 0) return true;
+        else if(body.you.direction === "left" && xDist > 0) return true;
     }
+    else if (Math.abs(yDist) < body.you.weaponRange && xDist == 0){
+        if(body.you.direction === "bottom" && yDist < 0) return true;
+        else if(body.you.direction === "top" && yDist > 0) return true;
+    }
+
+    return false;
 }
 
 function findClosest(body,targets){
