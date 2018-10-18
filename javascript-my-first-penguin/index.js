@@ -115,22 +115,29 @@ function targetEnemy(body){
 
 }
 
-function moveAwayFromFlames(body){
-
-}
-
-function commandReceived(body) {
+function commandReceived(context,body) {
     var response;
-    if (openShot(body)) response = "shoot";
-    else if (body.bonusTiles.length != 0) response = visibleBonusAction(body);
-    else if (!body.enemies[0].x) response = targetEnemy(body);
-    else response = moveTowardsCenterOfMap(body);
+    if (openShot(body)){
+        context.log("shoot");
+        response = "shoot";
+    }
+    else if (body.bonusTiles.length != 0) {
+        context.log("bonus tile");
+        response = visibleBonusAction(body);
+    }
+    else if (!body.enemies[0].x){
+        context.log("enemy");
+        response = targetEnemy(body);
+    }
+    else{
+        context.log("center");
+        response = moveTowardsCenterOfMap(body);
+    }
     return { command: response};
 }
 
 module.exports = function (context, req) {
-    context.log(req.body);
-    let response = action(req);    
+    let response = action(context,req);    
     context.res = {
         headers: {"Content-Type": 'application/json'},
         body: response
@@ -138,9 +145,9 @@ module.exports = function (context, req) {
     context.done();
 };
 
-function action(req) {
+function action(context,req) {
     if (req.params.query == "command") {
-        return commandReceived(req.body);
+        return commandReceived(context,req.body);
     } else if (req.params.query == "info") {
         return infoReceived();
     }
