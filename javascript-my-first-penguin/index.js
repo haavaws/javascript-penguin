@@ -104,6 +104,15 @@ function findClosest(body,targets){
 
 }
 
+function bonusCloser(body){
+    
+    var closestBonus = [500,500];
+    if(body.bonusTiles.length > 0) closestBonus = findClosest(body,body.bonusTiles);
+    if(closestBonus[0]+closestBonus[1] <= body.enemies[0].x + body.enemies[0].y){
+        return closestBonus;
+    }else return false;
+}
+
 function visibleBonusAction(body){
 
     var tarCoords = findClosest(body,body.bonusTiles);
@@ -120,14 +129,15 @@ function targetEnemy(body){
 
 function commandReceived(context,body) {
     var response;
+    let closestBonus = bonusCloser(body);
     if (openShot(body)){
         context.log("shoot");
         response = "shoot";
     }
-    /*else if (body.bonusTiles.length != 0) {
+    else if (closestBonus) {
         context.log("bonus tile");
-        response = visibleBonusAction(body);
-    }*/
+        response = moveTowardsPoint(body,closestBonus[0],closestBonus[1]);
+    }
     else if (body.enemies[0].x !== undefined){
         context.log("enemy");
         response = moveTowardsPoint(body,body.enemies[0].x,body.enemies[0].y);
