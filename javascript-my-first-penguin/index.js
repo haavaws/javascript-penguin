@@ -107,13 +107,15 @@ function findClosest(body,targets){
 function bonusCloser(body){
     
     var closestBonus = [500,500];
-    var enemyXDist = body.you.x - body.enemies[0].x;
-    var enemyYDist = body.you.y - body.enemies[0].y;
+    var enemyXDist;
+    var enemyYDist;
     var bonusXDist = body.you.x - closestBonus[0];
     var bonusYDist = body.you.y - closestBonus[1];
     if(body.bonusTiles.length > 0) closestBonus = findClosest(body,body.bonusTiles);
 
     if(body.enemies[0].x !== undefined){
+        enemyXDist = body.you.x - body.enemies[0].x;
+        enemyYDist = body.you.y - body.enemies[0].y;
         if(Math.abs(bonusXDist)+Math.abs(bonusYDist) <= Math.abs(enemyXDist) + Math.abs(enemyYDist)){
             return closestBonus;
         }else return false;
