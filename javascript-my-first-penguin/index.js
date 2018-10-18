@@ -119,7 +119,7 @@ function bonusCloser(body){
         }else return false;
     }
 
-    if(bonusXDist + bonusYDist < body.visibility) return closestBonus;
+    if(Math.abs(bonusXDist) + Math.abs(bonusYDist) < body.visibility) return closestBonus;
     else return false;
     
 }
