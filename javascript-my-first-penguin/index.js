@@ -106,12 +106,13 @@ function findClosest(body,targets){
 
 function bonusCloser(body){
     
-    var closestBonus = [500,500];
+    var closestBonus;
+    if(body.bonusTiles.length > 0) closestBonus = findClosest(body,body.bonusTiles);
+    else return false;
     var enemyXDist;
     var enemyYDist;
     var bonusXDist = body.you.x - closestBonus[0];
     var bonusYDist = body.you.y - closestBonus[1];
-    if(body.bonusTiles.length > 0) closestBonus = findClosest(body,body.bonusTiles);
 
     if(body.enemies[0].x !== undefined){
         enemyXDist = body.you.x - body.enemies[0].x;
@@ -121,7 +122,7 @@ function bonusCloser(body){
         }else return false;
     }
 
-    if(Math.abs(bonusXDist) + Math.abs(bonusYDist) < body.visibility) return closestBonus;
+    if(Math.abs(bonusXDist) + Math.abs(bonusYDist) <= body.visibility) return closestBonus;
     else return false;
     
 }
