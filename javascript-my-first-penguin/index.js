@@ -63,12 +63,13 @@ function openShot(body){
 
     xDist = body.you.x - body.enemies[0].x;
     yDist = body.you.y - body.enemies[0].y;
+    
 
-    if(Math.abs(xDist) < body.you.weaponRange && yDist == 0){
+    if(Math.abs(xDist) <= body.you.weaponRange && yDist == 0){
         if(body.you.direction === "right" && xDist < 0) return true;
         else if(body.you.direction === "left" && xDist > 0) return true;
     }
-    else if (Math.abs(yDist) < body.you.weaponRange && xDist == 0){
+    else if (Math.abs(yDist) <= body.you.weaponRange && xDist == 0){
         if(body.you.direction === "bottom" && yDist < 0) return true;
         else if(body.you.direction === "top" && yDist > 0) return true;
     }
@@ -129,7 +130,7 @@ function commandReceived(context,body) {
     }*/
     else if (body.enemies[0].x !== undefined){
         context.log("enemy");
-        response = moveTowardsPoint(body,body.enemies[0].x,);
+        response = moveTowardsPoint(body,body.enemies[0].x,body.enemies[0].y);
     }
     else{
         context.log("center");
@@ -157,8 +158,8 @@ function action(context,req) {
 }
 
 function infoReceived() {
-    let penguinName = "Pingu";
-    let teamName = "Bouvet";
+    let penguinName = "Kernel Panic";
+    let teamName = "Tyrannosaurus Tux";
 
     return {name: penguinName, team: teamName};
 }
