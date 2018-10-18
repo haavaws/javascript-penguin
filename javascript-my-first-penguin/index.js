@@ -76,8 +76,8 @@ function openShot(body){
 
 function findClosest(body,targets){
     var i;
-    var minXDist;
-    var minYDist;
+    var minXDist = 500;
+    var minYDist = 500;
     var agentXPos = body.you.x;
     var agentYPos = body.you.y;
     var tarX;
