@@ -3,7 +3,7 @@ const ROTATE_RIGHT = "rotate-right";
 const ADVANCE = "advance";
 const RETREAT = "retreat";
 const SHOOT = "shoot";
-const PASS = "pass";
+const PASS = "shoot";
 
 const MOVE_UP =  {"top" : ADVANCE, "bottom" : ROTATE_LEFT, "right" : ROTATE_LEFT ,"left" : ROTATE_RIGHT };
 const MOVE_DOWN =  {"top" : ROTATE_LEFT, "bottom" : ADVANCE, "right" : ROTATE_RIGHT ,"left" : ROTATE_LEFT };
@@ -107,7 +107,7 @@ function findClosest(body,targets){
 function bonusCloser(body){
     
     var closestBonus = [500,500];
-    if(body.enemies[i].x !== undefined){
+    if(body.enemies[0].x !== undefined){
         if(body.bonusTiles.length > 0) closestBonus = findClosest(body,body.bonusTiles);
         if(closestBonus[0]+closestBonus[1] <= body.enemies[0].x + body.enemies[0].y){
             return closestBonus;
