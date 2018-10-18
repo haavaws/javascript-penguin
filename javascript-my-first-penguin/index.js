@@ -109,7 +109,7 @@ function bonusCloser(body){
     var closestBonus = [500,500];
     var enemyXDist = body.you.x - body.enemies[0].x;
     var enemyYDist = body.you.y - body.enemies[0].y;
-    var bonusXDist = body.you.x - closestBpnus[0];
+    var bonusXDist = body.you.x - closestBonus[0];
     var bonusYDist = body.you.y - closestBonus[1];
 
     if(body.enemies[0].x !== undefined){
