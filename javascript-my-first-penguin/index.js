@@ -182,8 +182,8 @@ function action(context,req) {
 }
 
 function infoReceived() {
-    let penguinName = "Kernel Panic";
-    let teamName = "Tyrannosaurus Tux";
+    let penguinName = "Tyrannosaurus Tux";
+    let teamName = "Kernel Panic";
 
     return {name: penguinName, team: teamName};
 }
